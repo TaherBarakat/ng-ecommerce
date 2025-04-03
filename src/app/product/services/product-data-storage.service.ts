@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
+import { Course, StrapiResponse } from '../product.interface';
 @Injectable({
   providedIn: 'root',
 })
@@ -9,6 +10,8 @@ export class ProductDataStorageService {
   constructor() {}
   httpSrv = inject(HttpClient);
   getAllProduct() {
-    return this.httpSrv.get(this.baseURL + '/products?populate=*');
+    return this.httpSrv.get<StrapiResponse<Course>>(
+      this.baseURL + '/products?populate=*'
+    );
   }
 }
