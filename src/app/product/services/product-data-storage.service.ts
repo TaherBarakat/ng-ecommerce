@@ -9,6 +9,6 @@ export class ProductDataStorageService {
   constructor() {}
   httpSrv = inject(HttpClient);
   getAllProduct() {
-    return this.httpSrv.get(this.baseURL + '/products');
+    return this.httpSrv.get(this.baseURL + '/products?populate=*');
   }
 }
