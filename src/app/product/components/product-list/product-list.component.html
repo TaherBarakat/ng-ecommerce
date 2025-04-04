@@ -1,3 +1,15 @@
-@for ( product of products?.data; track product.id ){
-<app-product-card [product]="product"></app-product-card>
-}
+<section class="px-10 md:px-20 mb-10">
+  <div class="flex justify-between">
+    <h2 class="font-bold mb-6 text-xl">Brand New</h2>
+    <p class="hover:cursor-pointer">
+      View All Collection <span> &#8594;</span>
+    </p>
+  </div>
+  <div
+    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+  >
+    @for ( product of products?.data; track product.id ){
+    <app-product-card [product]="product"></app-product-card>
+    }
+  </div>
+</section>

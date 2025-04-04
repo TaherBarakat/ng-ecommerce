@@ -1,4 +1,39 @@
-<div>
-  <img [src]="product?.banner?.formats" alt="" class="aspect-5 w-10 h-10" />
-  {{ product?.id }}
+<!-- <div>
+  <img [src]="product?.banner?.url" alt="" class="w-full h-full rounded-t-lg" />
+  <div>
+    <h2>{{ product?.title }}</h2>
+  </div>
+</div> -->
+
+<div
+  [routerLink]="['/product', product?.id]"
+  class="bg-white rounded-lg shadow-md overflow-hidden hover:border hover:shadow-md hover:cursor-pointer"
+>
+  <div class="relative pb-[56.25%]">
+    <!-- 16:9 aspect ratio -->
+    <img
+      [src]="product?.banner?.url"
+      alt="Image 1"
+      class="absolute h-full w-full object-cover"
+    />
+  </div>
+  <div
+    class="p-4 rounded-b-lg flex items-center justify-between b-3 bg-gray-100"
+  >
+    <div class="max-w-[70%]">
+      <h3 class="font-bold text-md line-clamp-1 m-1">
+        {{ product?.title }}
+      </h3>
+      <h2 class="text-xs text-gray-400 flex gap-1 items-center">
+        <span-lucide [size]="20" [img]="ListIcon" class="my-icon"></span-lucide>
+
+        {{ product?.category }}
+      </h2>
+    </div>
+    <h2 class="font-bold text-lg">{{ product?.price }}$</h2>
+  </div>
 </div>
+<!-- 
+<lucide-angular [img]="FileIcon" class="my-icon"></lucide-angular>
+<lucide-icon [img]="FileIcon" class="my-icon"></lucide-icon>
+<i-lucide [img]="FileIcon" class="my-icon"></i-lucide> -->
