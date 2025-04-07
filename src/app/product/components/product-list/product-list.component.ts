@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ProductCardComponent } from '../product-card/product-card.component';
 import { Course, StrapiResponse } from '../../product.interface';
 
@@ -9,6 +9,9 @@ import { Course, StrapiResponse } from '../../product.interface';
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.css',
 })
-export class ProductListComponent {
-  @Input() products: StrapiResponse<Course> | undefined;
+export class ProductListComponent implements OnInit {
+  @Input() products: Course[] | undefined;
+  ngOnInit(): void {
+    console.log(this.products, 'load');
+  }
 }

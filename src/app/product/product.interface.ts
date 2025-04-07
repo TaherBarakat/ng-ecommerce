@@ -1,5 +1,5 @@
 export interface StrapiResponse<T> {
-  data: T[];
+  data: T; // Can be a single object or array of objects
   meta: {
     pagination: {
       page: number;

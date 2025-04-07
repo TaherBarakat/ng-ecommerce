@@ -6,7 +6,7 @@
 </div> -->
 
 <div
-  [routerLink]="['/product', product?.id]"
+  [routerLink]="['/product', product?.documentId]"
   class="bg-white rounded-lg shadow-md overflow-hidden hover:border hover:shadow-md hover:cursor-pointer"
 >
   <div class="relative pb-[56.25%]">
@@ -24,7 +24,7 @@
       <h3 class="font-bold text-md line-clamp-1 m-1">
         {{ product?.title }}
       </h3>
-      <h2 class="text-xs text-gray-400 flex gap-1 items-center">
+      <h2 class="text-xs text-secondary-text flex gap-1 items-center">
         <span-lucide [size]="20" [img]="ListIcon" class="my-icon"></span-lucide>
 
         {{ product?.category }}

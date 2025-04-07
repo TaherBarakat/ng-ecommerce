@@ -1,1 +1,61 @@
-<p>product-banner works!</p>
+<div class="flex flex-col md:flex-row gap-6 items-start justify-between my-14">
+  <!-- Image Container with fixed aspect ratio -->
+  <div class="w-full md:w-5/12">
+    <div class="aspect-w-16 aspect-h-9">
+      <img
+        [src]="product?.banner?.url"
+        alt="Product Banner"
+        class="object-cover w-full h-full rounded-lg"
+      />
+    </div>
+  </div>
+
+  <!-- Product Details -->
+  <div class="w-full md:w-1/2 flex flex-col justify-center space-y-4">
+    <div>
+      <h2 class="text-2xl font-bold text-primary-text">{{ product?.title }}</h2>
+      <h3 class="text-sm text-accent-text font-semibold">
+        {{ product?.category }}
+      </h3>
+    </div>
+    <div>
+      <p
+        class="text-base font-semibold max-h-[15vh] overflow-y-auto p-0"
+        *ngIf="product?.description?.[0]?.children?.[0]?.text as text"
+      >
+        {{ text }}
+        <!-- {{ product?.description[0]?.children[0]?.text }} -->
+      </p>
+      <p
+        class="text-accent-text text-xs font-semibold flex flex-row gap-1 mt-1"
+      >
+        <span>
+          <span-lucide
+            [size]="18"
+            [img]="product?.instantDelivery ? badgeCheck : octagonAlert"
+            [class]="
+              'my-icon mr-1 ' +
+              (product?.instantDelivery ? 'text-success' : 'text-alert')
+            "
+          ></span-lucide>
+        </span>
+        Eligible For Instance Delivery
+      </p>
+    </div>
+    <div>
+      <p class="text-2xl text-secondary-light font-semibold mb-1">
+        ${{ product?.price }}
+      </p>
+      <button
+        class="flex rounded-md items-center bg-secondary p-3 text-white hover:bg-secondary-light"
+      >
+        <span-lucide
+          [size]="20"
+          [img]="shoppingCart"
+          class="my-icon mr-1"
+        ></span-lucide>
+        <p>Add To Cart</p>
+      </button>
+    </div>
+  </div>
+</div>

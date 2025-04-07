@@ -1,4 +1,14 @@
-<section class="px-10 py-30">
-  <app-product-banner></app-product-banner>
-  <app-product-list [products]="products"> </app-product-list>
+<section class="px-10 md:px-20 mb-1">
+  <app-product-banner [product]="product"></app-product-banner>
+
+  <!-- <app-product-list [products]="products"> </app-product-list> -->
+</section>
+<section class="px-10 md:px-20 mb-10">
+  <div class="flex justify-between">
+    <h2 class="font-bold mb-6 text-xl">Recommended</h2>
+    <p class="hover:cursor-pointer">
+      View All Collection <span> &#8594;</span>
+    </p>
+  </div>
+  <app-product-list [products]="recommendedProducts"> </app-product-list>
 </section>

@@ -13,10 +13,12 @@ import { Course, StrapiResponse } from '../product/product.interface';
 })
 export class HomePageComponent implements OnInit {
   productDataStrSrc = inject(ProductDataStorageService);
-  products: StrapiResponse<Course> | undefined;
+  products: Course[] = []; // ✅ Safe default
   ngOnInit(): void {
-    this.productDataStrSrc
-      .getAllProduct()
-      .subscribe((response) => (this.products = response));
+    this.productDataStrSrc.getAllProduct().subscribe((response) => {
+      this.products = response?.data ?? [];
+      console.log(response?.data);
+      console.log(this.products);
+    });
   }
 }

@@ -10,14 +10,22 @@ export class ProductDataStorageService {
   baseURL = environment.BASE_STRAPI_URL;
   constructor() {}
   httpSrv = inject(HttpClient);
-  getAllProduct(): Observable<StrapiResponse<Course>> {
-    return this.httpSrv.get<StrapiResponse<Course>>(
+  getAllProduct(): Observable<StrapiResponse<Course[]>> {
+    return this.httpSrv.get<StrapiResponse<Course[]>>(
       this.baseURL + '/products?populate=*'
     );
   }
-  getProductById(id: number) {
+  getProductById(documentId: string) {
     return this.httpSrv.get<StrapiResponse<Course>>(
-      this.baseURL + '/products/' + id + '?populate=*'
+      this.baseURL + '/products/' + documentId + '?populate=*'
+    );
+  }
+  filterProductsByCategory(category: string) {
+    return this.httpSrv.get<StrapiResponse<Course[]>>(
+      this.baseURL +
+        '/products?filters[category][$eq]=' +
+        category +
+        '&populate=*'
     );
   }
 }

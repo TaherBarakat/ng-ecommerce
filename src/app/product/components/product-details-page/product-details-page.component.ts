@@ -3,6 +3,8 @@ import { ProductBannerComponent } from '../product-banner/product-banner.compone
 import { ProductListComponent } from '../product-list/product-list.component';
 import { StrapiResponse, Course } from '../../product.interface';
 import { ProductDataStorageService } from '../../services/product-data-storage.service';
+import { ActivatedRoute } from '@angular/router';
+import { filter, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-product-details-page',
@@ -12,11 +14,41 @@ import { ProductDataStorageService } from '../../services/product-data-storage.s
   styleUrl: './product-details-page.component.css',
 })
 export class ProductDetailsPageComponent {
-  productDataStrSrc = inject(ProductDataStorageService);
-  products: StrapiResponse<Course> | undefined;
+  recommendedProducts: Course[] | undefined;
+
+  product: Course | undefined;
+  productId: string | undefined;
+  productSub$: Subscription | undefined;
+
+  productDataStrSrv = inject(ProductDataStorageService);
+  route = inject(ActivatedRoute);
+
   ngOnInit(): void {
-    this.productDataStrSrc
-      .getAllProduct()
-      .subscribe((response) => (this.products = response));
+    this.loadProduct();
+  }
+
+  loadProduct() {
+    this.route.params.subscribe((params) => {
+      this.productSub$ = this.productDataStrSrv
+        .getProductById(params['documentId'])
+        .subscribe((response) => {
+          this.product = response.data ?? undefined;
+          this.loadRecommendedProducts(this.product?.category);
+        });
+    });
+  }
+  loadRecommendedProducts(category: string | null) {
+    if (category) {
+      this.productDataStrSrv
+        .filterProductsByCategory(category)
+        .subscribe((response) => {
+          if (Array.isArray(response?.data)) {
+            this.recommendedProducts =
+              response?.data?.filter(
+                (x: Course) => x.documentId !== this.product?.documentId
+              ) ?? undefined;
+          }
+        });
+    }
   }
 }

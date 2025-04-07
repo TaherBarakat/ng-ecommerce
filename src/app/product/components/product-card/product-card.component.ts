@@ -13,4 +13,7 @@ import { RouterLink } from '@angular/router';
 export class ProductCardComponent {
   @Input() product: Course | undefined;
   readonly ListIcon = ListIcon;
+  ngOnInit() {
+    console.log(this.product, 'card ');
+  }
 }
