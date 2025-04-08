@@ -10,17 +10,18 @@ import {
   OctagonAlert,
 } from 'lucide-angular';
 import { ProductListComponent } from '../product-list/product-list.component';
-import { NgIf } from '@angular/common';
+import { NgIf, NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-product-banner',
   standalone: true,
-  imports: [LucideAngularModule, ProductListComponent, NgIf],
+  imports: [LucideAngularModule, ProductListComponent, NgIf, NgOptimizedImage],
   templateUrl: './product-banner.component.html',
   styleUrl: './product-banner.component.css',
 })
 export class ProductBannerComponent {
   @Input() product: Course | undefined;
+  @Input() isLoading: boolean = true;
 
   readonly shoppingCart = ShoppingCart;
   readonly badgeCheck = BadgeCheck;
