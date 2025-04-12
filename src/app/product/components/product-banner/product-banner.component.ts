@@ -11,6 +11,7 @@ import {
 } from 'lucide-angular';
 import { ProductListComponent } from '../product-list/product-list.component';
 import { NgIf, NgOptimizedImage } from '@angular/common';
+import { CartService } from '../../../cart/services/cart.service';
 
 @Component({
   selector: 'app-product-banner',
@@ -26,4 +27,9 @@ export class ProductBannerComponent {
   readonly shoppingCart = ShoppingCart;
   readonly badgeCheck = BadgeCheck;
   readonly octagonAlert = OctagonAlert;
+
+  cartSrv = inject(CartService);
+  onAddToCart() {
+    this.cartSrv.addToCart(this.product?.documentId || '');
+  }
 }

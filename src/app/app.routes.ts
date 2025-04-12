@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { HomePageComponent } from './home-page/home-page.component';
 import { ProductDetailsPageComponent } from './product/components/product-details-page/product-details-page.component';
+import { AuthPageComponent } from './auth/components/auth-page/auth-page.component';
 
 export const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -9,4 +10,5 @@ export const routes: Routes = [
   { path: 'explore', component: HomePageComponent },
   { path: 'projects', component: HomePageComponent },
   { path: 'about-us', component: HomePageComponent },
+  { path: 'auth/:mode', component: AuthPageComponent },
 ];

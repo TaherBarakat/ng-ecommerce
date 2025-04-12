@@ -12,6 +12,6 @@ import { Course, StrapiResponse } from '../../product.interface';
 export class ProductListComponent implements OnInit {
   @Input() products: Course[] | undefined;
   ngOnInit(): void {
-    console.log(this.products, 'load');
+    // console.log(this.products, 'load');
   }
 }

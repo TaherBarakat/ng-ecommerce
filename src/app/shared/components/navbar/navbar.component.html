@@ -4,6 +4,8 @@
   >
     <img src="assets/logo.svg" alt="logo" />
 
+    <!-- <p>{{ isUserLoggedIn$ | async }}</p> -->
+
     <div class="flex flex-1 items-center justify-end md:justify-between">
       <nav aria-label="Global" class="hidden md:block">
         <ul class="flex items-center gap-6 text-sm">
@@ -45,17 +47,24 @@
           </li>
         </ul>
       </nav>
-
+      <!-- @if (!test) { eddddddtest } -->
       <div class="flex items-center gap-4">
-        <div class="sm:flex sm:gap-4">
+        <div *ngIf="isUserLoggedIn$ | async">
+          <span> cart </span>
+          <span class="w-10 h-10">
+            <clerk-user-button />
+          </span>
+        </div>
+
+        <div class="sm:flex sm:gap-4" *ngIf="!(isUserLoggedIn$ | async)">
           <a
-            routerLink="/login"
+            routerLink="/auth/login"
             class="block rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700"
           >
             Login
           </a>
           <a
-            routerLink="/register"
+            routerLink="/auth/register"
             class="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 sm:block"
           >
             Register

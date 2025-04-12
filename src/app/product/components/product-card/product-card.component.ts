@@ -14,6 +14,6 @@ export class ProductCardComponent {
   @Input() product: Course | undefined;
   readonly ListIcon = ListIcon;
   ngOnInit() {
-    console.log(this.product, 'card ');
+    // console.log(this.product, 'card ');
   }
 }

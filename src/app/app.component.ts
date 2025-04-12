@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
+import { ClerkService } from 'ngx-clerk';
+import { environment } from '../environments/environment.development';
 
 @Component({
   selector: 'app-root',
@@ -10,5 +12,11 @@ import { NavbarComponent } from './shared/components/navbar/navbar.component';
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  title = 'ng-ecommerce';
+  constructor(private _clerk: ClerkService) {
+    this._clerk.__init({
+      publishableKey: environment.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
+    });
+  }
+
+  // title = 'ng-ecommerce';
 }
