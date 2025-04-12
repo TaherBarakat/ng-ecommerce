@@ -27,12 +27,14 @@ export class AuthPageComponent {
   userSub: Subscription | undefined;
   ngOnInit() {
     this.setMode();
+    this.authSrv.currentUser.subscribe((user) => {
+      if (user) this.goToTheHomePage();
+    });
 
-    this.userSub = this.clerkSrv.user$.subscribe((user) => {
+    this.clerkSrv.user$.subscribe((user) => {
       console.log(user);
       this.authSrv.isUserLoggedIn.next(user ? true : false);
       this.authSrv.currentUser.next(user ?? undefined);
-      if (user) this.goToTheHomePage();
     });
   }
 

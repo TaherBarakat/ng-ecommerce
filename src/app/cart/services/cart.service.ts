@@ -15,10 +15,10 @@ export class CartService {
   constructor() {}
 
   addToCart(documentId: string) {
-    if (this.clerkSrv.user$) {
+    if (this.authSrv.isUserLoggedIn.value) {
       this.cart.push(documentId);
       console.log(this.cart, 'cart');
-      console.log(this.clerkSrv.user$);
+      console.log(this.authSrv.isUserLoggedIn.value);
     } else {
       this.router.navigate(['auth', 'login']);
     }

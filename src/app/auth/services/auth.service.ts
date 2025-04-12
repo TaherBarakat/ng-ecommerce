@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  isUserLoggedIn = new BehaviorSubject(false)=;
+  isUserLoggedIn = new BehaviorSubject(false);
   currentUser: BehaviorSubject<any | undefined> = new BehaviorSubject(
     undefined
   );
