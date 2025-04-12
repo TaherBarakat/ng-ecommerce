@@ -25,14 +25,17 @@ export class AuthPageComponent {
   authMode: string = '';
 
   userSub: Subscription | undefined;
+
   ngOnInit() {
+    console.log('init the auth page');
     this.setMode();
-    this.authSrv.currentUser.subscribe((user) => {
-      if (user) this.goToTheHomePage();
+
+    this.userSub = this.authSrv.currentUser.subscribe((user) => {
+      if (user && this.route.snapshot.url[0].path == 'auth')
+        this.goToTheHomePage();
     });
 
     this.clerkSrv.user$.subscribe((user) => {
-      console.log(user);
       this.authSrv.isUserLoggedIn.next(user ? true : false);
       this.authSrv.currentUser.next(user ?? undefined);
     });
