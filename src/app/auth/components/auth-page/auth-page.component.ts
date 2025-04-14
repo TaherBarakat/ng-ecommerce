@@ -30,14 +30,10 @@ export class AuthPageComponent {
     console.log('init the auth page');
     this.setMode();
 
-    this.userSub = this.authSrv.currentUser.subscribe((user) => {
-      if (user && this.route.snapshot.url[0].path == 'auth')
-        this.goToTheHomePage();
-    });
-
-    this.clerkSrv.user$.subscribe((user) => {
+    this.userSub = this.clerkSrv.user$.subscribe((user) => {
       this.authSrv.isUserLoggedIn.next(user ? true : false);
       this.authSrv.currentUser.next(user ?? undefined);
+      if (user) this.goToTheHomePage();
     });
   }
 

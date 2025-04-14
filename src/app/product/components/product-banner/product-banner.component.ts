@@ -12,6 +12,7 @@ import {
 import { ProductListComponent } from '../product-list/product-list.component';
 import { NgIf, NgOptimizedImage } from '@angular/common';
 import { CartService } from '../../../cart/services/cart.service';
+import { CartDataStorageService } from '../../../cart/services/cart-data-storage.service';
 
 @Component({
   selector: 'app-product-banner',
@@ -29,6 +30,7 @@ export class ProductBannerComponent {
   readonly octagonAlert = OctagonAlert;
 
   cartSrv = inject(CartService);
+  cartDataStRSrv = inject(CartDataStorageService);
   onAddToCart() {
     this.cartSrv.addToCart(this.product?.documentId || '');
   }

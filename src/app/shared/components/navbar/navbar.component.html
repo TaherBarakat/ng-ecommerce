@@ -49,11 +49,21 @@
       </nav>
       <!-- @if (!test) { eddddddtest } -->
       <div class="flex items-center gap-4">
-        <div *ngIf="isUserLoggedIn$ | async">
-          <span> cart </span>
-          <span class="w-10 h-10">
-            <clerk-user-button />
+        <div
+          *ngIf="isUserLoggedIn$ | async"
+          class="flex flex-row w-[5.5vw] justify-between"
+        >
+          <span class="font-bold flex flex-row cursor-pointer">
+            <lucide-angular
+              [img]="cartIcon"
+              strokeWidth="2"
+              class="my-icon"
+            ></lucide-angular>
+            &#40;{{ cartItemsCount | async }}&#41;
           </span>
+
+          <clerk-user-button />
+          <!-- <span class="w-10 h-10"> </span> -->
         </div>
 
         <div class="sm:flex sm:gap-4" *ngIf="!(isUserLoggedIn$ | async)">

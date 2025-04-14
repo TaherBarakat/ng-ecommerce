@@ -16,4 +16,15 @@ export class AuthService {
   currentUser: BehaviorSubject<any | undefined> = new BehaviorSubject(
     undefined
   );
+  getUsernameAndEmail(): {
+    Username: string;
+    Email: string;
+  } {
+    let userData = {
+      Username: this.currentUser.value?.fullName || '',
+      Email: this.currentUser.value?.primaryEmailAddress.emailAddress || '',
+    };
+
+    return userData;
+  }
 }
