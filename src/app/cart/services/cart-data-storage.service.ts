@@ -13,4 +13,11 @@ export class CartDataStorageService {
   postCart(reqBody: IPostCartReqBody) {
     return this.httpSrv.post(this.baseURL + '/carts', reqBody);
   }
+  getCarts(userEmail: string) {
+    let filterQueryPram = '&filters[Email][$eq]=' + userEmail;
+    return this.httpSrv.get(
+      `${this.baseURL}/carts?populate[products][populate]=banner${filterQueryPram}`
+    );
+    // localhost:1337/ap/carts/
+  }
 }

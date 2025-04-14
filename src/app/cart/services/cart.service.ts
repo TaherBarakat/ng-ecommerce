@@ -25,11 +25,13 @@ export class CartService {
     if (this.authSrv.isUserLoggedIn.value) {
       this.cart.push(documentId);
       this.cartCountSubject.next(this.cart.length); // notify subscribers
-      console.log(this.cart);
     } else {
       this.router.navigate(['auth', 'login']);
     }
-    this.onPostCart();
+    // this.onPostCart();
+    this.cartDataStRSrv
+      .getCarts(this.authSrv.getUsernameAndEmail().Email)
+      .subscribe((x) => console.log(x));
   }
 
   getCartItemsCount(): Observable<number> {
@@ -49,7 +51,6 @@ export class CartService {
     let postCartReqBody: IPostCartReqBody = {
       data: { products, ...userData },
     };
-    console.log(postCartReqBody);
     this.cartDataStRSrv
       .postCart(postCartReqBody)
       .subscribe((x) => console.log(x));
