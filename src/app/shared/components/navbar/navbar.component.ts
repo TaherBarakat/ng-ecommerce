@@ -9,6 +9,7 @@ import {
 import { AsyncPipe, NgIf } from '@angular/common';
 import { CartService } from '../../../cart/services/cart.service';
 import { LucideAngularModule, ShoppingCart } from 'lucide-angular';
+import { CartDropDownComponent } from '../../../cart/components/cart-drop-down/cart-drop-down.component';
 
 @Component({
   selector: 'app-navbar',
@@ -19,6 +20,7 @@ import { LucideAngularModule, ShoppingCart } from 'lucide-angular';
     AsyncPipe,
     NgIf,
     LucideAngularModule,
+    CartDropDownComponent,
     // LucideAngularModule.pick({ ShoppingCart }),
   ],
   templateUrl: './navbar.component.html',
@@ -43,4 +45,8 @@ export class NavbarComponent {
   //     this.isLoggedInMode = isUserLoggedIn;
   //   });
   // }
+  isCartDropDownOpen = false;
+  onOpenCartDropDown() {
+    this.isCartDropDownOpen = !this.isCartDropDownOpen;
+  }
 }

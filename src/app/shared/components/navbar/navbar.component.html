@@ -53,7 +53,10 @@
           *ngIf="isUserLoggedIn$ | async"
           class="flex flex-row w-[5.5vw] justify-between"
         >
-          <span class="font-bold flex flex-row cursor-pointer">
+          <span
+            class="font-bold flex flex-row cursor-pointer"
+            (click)="onOpenCartDropDown()"
+          >
             <lucide-angular
               [img]="cartIcon"
               strokeWidth="2"
@@ -65,7 +68,11 @@
           <clerk-user-button />
           <!-- <span class="w-10 h-10"> </span> -->
         </div>
-
+        @if ( isCartDropDownOpen ) {
+        <ng-container>
+          <app-cart-drop-down (isOpen)="onOpenCartDropDown()" />
+        </ng-container>
+        }
         <div class="sm:flex sm:gap-4" *ngIf="!(isUserLoggedIn$ | async)">
           <a
             routerLink="/auth/login"
