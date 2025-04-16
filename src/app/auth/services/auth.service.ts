@@ -16,7 +16,7 @@ export class AuthService {
   currentUser: BehaviorSubject<any | undefined> = new BehaviorSubject(
     undefined
   );
-  getUsernameAndEmail(): {
+  get getUsernameAndEmail(): {
     Username: string;
     Email: string;
   } {

@@ -1,5 +1,7 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
+import { CartService } from '../../services/cart.service';
+import { ICarts } from '../../cart.interface';
 
 @Component({
   selector: 'app-cart-drop-down',
@@ -10,7 +12,13 @@ import { BehaviorSubject, Subject } from 'rxjs';
 })
 export class CartDropDownComponent {
   @Output() isOpen = new EventEmitter<boolean>();
+  cartSrv = inject(CartService);
+  carts!: ICarts[];
 
+  ngOnInit() {
+    this.carts = this.cartSrv.getCarts;
+    console.log(this.carts);
+  }
   onCloseCart() {
     this.isOpen.emit(false);
   }
