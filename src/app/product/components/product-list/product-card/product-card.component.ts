@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Course } from '../../product.interface';
+import { Course } from '../../../product.interface';
 import { LucideAngularModule, ListIcon } from 'lucide-angular';
 import { RouterLink } from '@angular/router';
 

@@ -1,6 +1,6 @@
 import { Component, inject, Input } from '@angular/core';
-import { StrapiResponse, Course } from '../../product.interface';
-import { ProductDataStorageService } from '../../services/product-data-storage.service';
+import { StrapiResponse, Course } from '../../../product.interface';
+import { ProductDataStorageService } from '../../../services/product-data-storage.service';
 import { ActivatedRoute } from '@angular/router';
 import { Subscribable, subscribeOn, Subscription } from 'rxjs';
 import {
@@ -9,10 +9,10 @@ import {
   BadgeCheck,
   OctagonAlert,
 } from 'lucide-angular';
-import { ProductListComponent } from '../product-list/product-list.component';
+import { ProductListComponent } from '../../product-list/product-list.component';
 import { NgIf, NgOptimizedImage } from '@angular/common';
-import { CartService } from '../../../cart/services/cart.service';
-import { CartDataStorageService } from '../../../cart/services/cart-data-storage.service';
+import { CartService } from '../../../../cart/services/cart.service';
+import { CartDataStorageService } from '../../../../cart/services/cart-data-storage.service';
 
 @Component({
   selector: 'app-product-banner',

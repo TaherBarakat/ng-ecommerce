@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { ProductBannerComponent } from '../product-banner/product-banner.component';
+import { ProductBannerComponent } from './product-banner/product-banner.component';
 import { ProductListComponent } from '../product-list/product-list.component';
 import { StrapiResponse, Course } from '../../product.interface';
 import { ProductDataStorageService } from '../../services/product-data-storage.service';

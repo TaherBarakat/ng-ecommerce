@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ProductCardComponent } from '../product-card/product-card.component';
+import { ProductCardComponent } from './product-card/product-card.component';
 import { Course, StrapiResponse } from '../../product.interface';
 
 @Component({
