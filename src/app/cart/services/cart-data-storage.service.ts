@@ -21,4 +21,5 @@ export class CartDataStorageService {
     );
     // localhost:1337/ap/carts/
   }
+  deleteCart() {}
 }

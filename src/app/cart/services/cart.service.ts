@@ -10,6 +10,7 @@ import { ICarts, IPostCartReqBody } from '../cart.interface';
   providedIn: 'root',
 })
 export class CartService {
+  // get total daelete cart
   private cartDocumentIds: string[] = [];
   private carts!: ICarts[];
 
@@ -77,5 +78,13 @@ export class CartService {
     this.cartDataStRSrv
       .postCart(postCartReqBody)
       .subscribe((x) => console.log(x));
+  }
+
+  get totalAmount(): number {
+    let totalAmount: number = 0;
+    for (const cart of this.carts) {
+      totalAmount += cart.products[0]?.price || 0;
+    }
+    return totalAmount;
   }
 }
