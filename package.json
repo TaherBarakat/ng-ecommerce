@@ -18,8 +18,10 @@
     "@angular/platform-browser": "^18.2.0",
     "@angular/platform-browser-dynamic": "^18.2.0",
     "@angular/router": "^18.2.0",
+    "@stripe/stripe-js": "^7.1.0",
     "lucide-angular": "^0.487.0",
     "ngx-clerk": "^0.2.0",
+    "ngx-stripe": "^19.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.10"
