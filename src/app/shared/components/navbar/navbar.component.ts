@@ -31,8 +31,12 @@ export class NavbarComponent {
   clerkSrv = inject(ClerkService);
   cartSrv = inject(CartService);
 
+  isMobileMenuOpen = false;
   readonly cartIcon = ShoppingCart;
 
+  onToggleMobileMenu() {
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
+  }
   // .subscribe((user) => {
   // isUserLoggedIn$ = this.authSrv.isUserLoggedIn;
   isUserLoggedIn$ = this.clerkSrv.user$;

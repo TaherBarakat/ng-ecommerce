@@ -4,6 +4,7 @@ import { ProductDataStorageService } from '../product/services/product-data-stor
 import { ProductListComponent } from '../product/components/product-list/product-list.component';
 import { Course, StrapiResponse } from '../product/product.interface';
 import { ClerkService, ClerkUserProfileComponent } from 'ngx-clerk';
+import { PaymentService } from '../stripe-checkout/services/payment.service';
 
 @Component({
   selector: 'app-home-page',
@@ -14,6 +15,7 @@ import { ClerkService, ClerkUserProfileComponent } from 'ngx-clerk';
 })
 export class HomePageComponent implements OnInit {
   productDataStrSrc = inject(ProductDataStorageService);
+  paymentSrv = inject(PaymentService);
   products: Course[] = [];
 
   clerkSrv = inject(ClerkService);
@@ -21,5 +23,10 @@ export class HomePageComponent implements OnInit {
     this.productDataStrSrc.getAllProduct().subscribe((response) => {
       this.products = response?.data ?? [];
     });
+
+    //   this.paymentSrv
+    //     .createPaymentIntent(1, 'usd')
+    //     .subscribe((x) => console.log(x));
+    //
   }
 }
