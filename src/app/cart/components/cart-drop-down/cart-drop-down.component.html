@@ -33,10 +33,15 @@
     </button>
 
     <div class="mt-4 space-y-6">
+      @if (cart?.products?.length!==0) {
+
       <ul class="space-y-4">
         @for (product of cart?.products; track product.documentId) {
-        @if(product){
-        <li class="flex items-center gap-4">
+        <li
+          (click)="onCloseCart()"
+          class="flex items-center gap-4 cursor-pointer hover:bg-accent-text"
+          [routerLink]="['/products', product.documentId]"
+        >
           <img
             [src]="product.banner?.url"
             alt=""
@@ -59,12 +64,15 @@
             </dl>
           </div>
         </li>
-        } }
+        }
       </ul>
+      }
 
       <div class="space-y-4 text-center">
+        @if (cart?.products?.length!==0) {
         <a
           [routerLink]="['/cart']"
+          (click)="onCloseCart()"
           class="block rounded-sm border border-gray-600 px-5 py-3 text-sm text-gray-600 transition hover:ring-1 hover:ring-gray-400"
         >
           View my cart
@@ -72,6 +80,7 @@
 
         <a
           [routerLink]="['/checkout']"
+          (click)="onCloseCart()"
           class="block rounded-sm bg-gray-700 px-5 py-3 text-sm text-gray-100 transition hover:bg-gray-600"
         >
           Checkout
@@ -79,10 +88,21 @@
 
         <a
           [routerLink]="['/products']"
+          (click)="onCloseCart()"
           class="inline-block text-sm text-gray-500 underline underline-offset-4 transition hover:text-gray-600"
         >
-          Continue shopping
+          continue shopping
         </a>
+        }@else{
+        <p>Your Cart Is Empty!</p>
+        <a
+          [routerLink]="['/products']"
+          (click)="onCloseCart()"
+          class="inline-block text-sm text-gray-500 underline underline-offset-4 transition hover:text-gray-600"
+        >
+          start shopping now
+        </a>
+        }
       </div>
     </div>
   </div>
