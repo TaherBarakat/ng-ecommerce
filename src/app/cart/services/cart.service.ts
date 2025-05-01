@@ -2,7 +2,14 @@ import { inject, Injectable } from '@angular/core';
 import { AuthService } from '../../auth/services/auth.service';
 import { Router } from '@angular/router';
 import { ClerkService } from 'ngx-clerk';
-import { BehaviorSubject, filter, Observable, switchMap } from 'rxjs';
+import {
+  BehaviorSubject,
+  concatMap,
+  filter,
+  Observable,
+  switchMap,
+  tap,
+} from 'rxjs';
 import { CartDataStorageService } from './cart-data-storage.service';
 import { ICarts, IPostCartReqBody } from '../cart.interface';
 
@@ -10,80 +17,126 @@ import { ICarts, IPostCartReqBody } from '../cart.interface';
   providedIn: 'root',
 })
 export class CartService {
-  // get total daelete cart
-  private cartDocumentIds: string[] = [];
-  private carts!: ICarts[];
-
+  private cartProductsDocumentIds: string[] = [];
+  private cart?: ICarts;
   private cartCountSubject = new BehaviorSubject<number>(0); // reactive state
-  cartCount$ = this.cartCountSubject.asObservable(); // observable to expose
 
-  authSrv = inject(AuthService);
-  router = inject(Router);
-  clerkSrv = inject(ClerkService);
-  cartDataStRSrv = inject(CartDataStorageService);
+  private authSrv = inject(AuthService);
+  private router = inject(Router);
+  private clerkSrv = inject(ClerkService);
+  private cartDataStRSrv = inject(CartDataStorageService);
+
+  cartCount$ = this.cartCountSubject.asObservable();
 
   constructor() {
     this.setLocalCartItems();
   }
 
-  addToCart(documentId: string) {
+  setLocalCartItems() {
+    this.authSrv.isUserLoggedIn
+      .pipe(
+        filter((loggedIn) => loggedIn === true),
+        switchMap(() =>
+          this.cartDataStRSrv.getCart(this.authSrv.getUsernameAndEmail.Email)
+        ),
+        tap((resp) =>
+          resp.data != undefined
+            ? resp
+            : this.cartDataStRSrv
+                .initCart()
+                .subscribe((res) => console.log(res))
+        )
+      )
+      .subscribe((cart) => {
+        if (cart?.data) {
+          this.cart = { ...cart?.data };
+          this.cartProductsDocumentIds = cart.data.products.map(
+            (product) => product.documentId
+          );
+        }
+        this.cartCountSubject.next(this.cartProductsDocumentIds.length);
+      });
+  }
+
+  addToCart(productDocumentId: string) {
+    // if (this.cartProductsDocumentIds.includes(productDocumentId)) return;
+
     if (this.authSrv.isUserLoggedIn.value) {
-      this.cartDocumentIds.push(documentId);
-      this.cartCountSubject.next(this.cartDocumentIds.length); // notify subscribers
+      // let products = ;
+      let postToCartReqBody = {
+        data: {
+          products: {
+            connect: [productDocumentId],
+          },
+        },
+      };
+      this.cartDataStRSrv
+        .postToCart(postToCartReqBody, this.cart!.documentId)
+        .subscribe(() => {
+          this.setLocalCartItems();
+        });
     } else {
       this.router.navigate(['auth', 'login']);
     }
-    // this.onPostCart();
-    this.cartDataStRSrv
-      .getCarts(this.authSrv.getUsernameAndEmail.Email)
-      .subscribe((x) => console.log(x));
+    // this.onPostToCart(documentId);
   }
 
   getCartItemsCount(): Observable<number> {
     return this.cartCount$; // expose the count as observable
   }
-  getCartDocumentIdArray(): string[] {
-    return [...this.cartDocumentIds];
+  getCartProductDocumentIdArray(): string[] {
+    return [...this.cartProductsDocumentIds];
   }
 
-  setLocalCartItems() {
-    this.authSrv.isUserLoggedIn
-      .pipe(
-        filter((loggedIn) => loggedIn === true), // only proceed if true
-        switchMap(() =>
-          this.cartDataStRSrv.getCarts(this.authSrv.getUsernameAndEmail.Email)
-        )
-      )
-      .subscribe((carts) => {
-        carts?.data ? (this.carts = carts?.data) : (this.carts = []);
-        this.cartDocumentIds = carts.data.map((cart) => cart.documentId);
-        this.cartCountSubject.next(this.cartDocumentIds.length);
+  deleteFromCart(documentId: string) {
+    // if (this.cartProductsDocumentIds.includes(documentId)) return;
+    if (this.authSrv.isUserLoggedIn.value) {
+      let filteredCartProductsDocumentIds = this.cartProductsDocumentIds.filter(
+        (deletedDocumentId) => deletedDocumentId !== documentId
+      );
+      // this.cart?.products.push(documentId);
 
-        // console.log(carts);
-      });
+      // let products = ;
+      let postToCartReqBody = {
+        data: {
+          products: {
+            set: [filteredCartProductsDocumentIds],
+          },
+        },
+      };
+      this.cartDataStRSrv
+        .postToCart(postToCartReqBody, this.cart!.documentId)
+        .subscribe(() => {
+          this.setLocalCartItems();
+        });
+    }
+    // this.onPostToCart(documentId);
   }
-  get getCarts() {
-    return this.carts;
-  }
-  onPostCart() {
+  // onPostToCart(productId: string) {}
+  onDeleteFromCart(productId: string) {
     let products = {
-      connect: this.getCartDocumentIdArray(),
+      connect: [productId],
     };
-
-    let userData = this.authSrv.getUsernameAndEmail;
-
-    let postCartReqBody: IPostCartReqBody = {
-      data: { products, ...userData },
+    let postToCartReqBody = {
+      data: { products },
     };
     this.cartDataStRSrv
-      .postCart(postCartReqBody)
-      .subscribe((x) => console.log(x));
+      .postToCart(postToCartReqBody, this.cart!.documentId)
+      .subscribe((x) => {
+        this.setLocalCartItems();
+        console.log(x);
+      });
+  }
+
+  get getCart() {
+    return this.cart;
   }
 
   get totalAmount(): number {
     let totalAmount: number = 0;
-    for (const cart of this.carts) {
-      totalAmount += cart.products[0]?.price || 0;
+    if (this.cart?.products.length == 0 || !this.cart) return totalAmount;
+    for (const product of this.cart.products) {
+      totalAmount += product.price || 0;
     }
     return totalAmount;
   }

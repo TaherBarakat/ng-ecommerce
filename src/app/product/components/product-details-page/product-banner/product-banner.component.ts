@@ -32,6 +32,7 @@ export class ProductBannerComponent {
   cartSrv = inject(CartService);
   cartDataStRSrv = inject(CartDataStorageService);
   onAddToCart() {
+    console.log(this.product?.documentId, 'on post');
     this.cartSrv.addToCart(this.product?.documentId || '');
   }
 }

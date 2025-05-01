@@ -7,10 +7,10 @@
 
       <div class="mt-8">
         <ul class="space-y-4">
-          @for (cart of carts; track $index) {
+          @for (product of cart?.products; track $index) {
           <li class="flex items-center gap-4">
             <img
-              [src]="cart.products[0].banner?.url"
+              [src]="product.banner?.url"
               alt=""
               class="size-16 rounded-sm object-cover"
             />
@@ -21,7 +21,7 @@
               <dl class="mt-0.5 space-y-px text-[10px] text-gray-600">
                 <div>
                   <dt class="inline">Category:{{ " " }}</dt>
-                  <dd class="inline">{{ cart.products[0].category }}</dd>
+                  <dd class="inline">{{ product.category }}</dd>
                 </div>
               </dl>
             </div>
@@ -29,10 +29,13 @@
             <div class="flex flex-1 items-center justify-end gap-2">
               <div>
                 <!-- <dt class="inline">price:</dt> -->
-                <dd class="inline">$ {{ cart.products[0].price }}</dd>
+                <dd class="inline">$ {{ product.price }}</dd>
               </div>
 
-              <button class="text-gray-600 transition hover:text-red-600">
+              <button
+                class="text-gray-600 transition hover:text-red-600"
+                (click)="onDeleteCartItem(product.documentId)"
+              >
                 <span class="sr-only">Remove item</span>
 
                 <svg

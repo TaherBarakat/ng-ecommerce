@@ -10,6 +10,7 @@ import { StripeElementsOptions } from '@stripe/stripe-js';
 import { environment } from '../../environments/environment.development';
 import { PaymentService } from './services/payment.service';
 import { CurrencyPipe, NgIf } from '@angular/common';
+import { CartService } from '../cart/services/cart.service';
 
 @Component({
   selector: 'app-stripe-checkout',
@@ -32,6 +33,7 @@ export class StripeCheckoutComponent implements OnInit {
 
   private readonly fb = inject(FormBuilder);
   private paymentService = inject(PaymentService);
+  private cartService = inject(CartService);
 
   readonly stripe = injectStripe(environment.STRIPE_PUBLISHABLE_kEY);
 
@@ -41,7 +43,7 @@ export class StripeCheckoutComponent implements OnInit {
     address: ['', [Validators.required]],
     zipcode: ['', [Validators.required]],
     city: ['', [Validators.required]],
-    amount: [2500, [Validators.required, Validators.pattern(/\d+/)]],
+    amount: [0, [Validators.required, Validators.pattern(/\d+/)]],
   });
 
   elementsOptions: StripeElementsOptions = {
@@ -59,25 +61,20 @@ export class StripeCheckoutComponent implements OnInit {
   paymentSuccess = signal(false);
   paymentError = signal('');
 
-  get amount() {
-    const amountValue = this.checkoutForm.get('amount')?.value;
-    if (!amountValue || amountValue < 0) return 0;
-    return Number(amountValue) / 100;
+  ngOnInit() {
+    // const amount = this.cartService.totalAmount;
+
+    this.paymentService.createPaymentIntent().subscribe(({ clientSecret }) => {
+      this.elementsOptions.clientSecret = clientSecret;
+    });
   }
 
-  ngOnInit() {
-    const amount = this.checkoutForm.get('amount')?.value;
+  get amount() {
+    this.checkoutForm.get('amount')?.patchValue(this.cartService.totalAmount);
 
-    // this.paymentService
-    //   .createPaymentIntent(amount, 'usd')
-    //   .subscribe(({ clientSecret }) => {
-    //     this.elementsOptions.clientSecret = clientSecret;
-    //   });
-    this.paymentService
-      .createPaymentIntent(1, 'usd')
-      .subscribe(({ clientSecret }) => {
-        this.elementsOptions.clientSecret = clientSecret;
-      });
+    const amountValue = this.checkoutForm.get('amount')?.value;
+    if (!amountValue || amountValue < 0) return 0;
+    return amountValue;
   }
 
   clear() {

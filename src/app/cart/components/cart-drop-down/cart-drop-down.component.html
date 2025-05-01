@@ -34,10 +34,11 @@
 
     <div class="mt-4 space-y-6">
       <ul class="space-y-4">
-        @for (item of carts; track item.documentId) { @if(item.products[0]){
+        @for (product of cart?.products; track product.documentId) {
+        @if(product){
         <li class="flex items-center gap-4">
           <img
-            [src]="item.products[0].banner?.url"
+            [src]="product.banner?.url"
             alt=""
             class="size-16 rounded-sm object-cover"
           />
@@ -48,12 +49,12 @@
             <dl class="mt-0.5 space-y-px text-[10px] text-gray-600">
               <div>
                 <dt class="inline">category{{ " " }}</dt>
-                <dd class="inline">{{ item.products[0].category }}</dd>
+                <dd class="inline">{{ product.category }}</dd>
               </div>
 
               <div>
                 <dt class="inline">price:</dt>
-                <dd class="inline">{{ item.products[0].price }} $</dd>
+                <dd class="inline">{{ product.price }} $</dd>
               </div>
             </dl>
           </div>
