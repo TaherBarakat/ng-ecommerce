@@ -75,7 +75,7 @@
             ></lucide-angular>
             &#40;{{ cartItemsCount | async }}&#41;
           </span>
-          <clerk-user-button class="mt-2" />
+          <clerk-user-button class="mt-2 hidden md:block" />
           <button
             class="block rounded-sm bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 md:hidden"
             (click)="onToggleMobileMenu()"
@@ -185,6 +185,10 @@
           </li>
         </ul>
       </nav>
+
+      <div *ngIf="isUserLoggedIn$ | async">
+        <clerk-user-profile />
+      </div>
 
       <div
         *ngIf="!(isUserLoggedIn$ | async)"

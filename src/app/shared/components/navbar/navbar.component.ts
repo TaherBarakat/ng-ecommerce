@@ -29,6 +29,7 @@ const NAV_LINKS = [
     ClerkUserButtonComponent,
     AsyncPipe,
     NgIf,
+    ClerkUserProfileComponent,
     LucideAngularModule,
     CartDropDownComponent,
     // LucideAngularModule.pick({ ShoppingCart }),
