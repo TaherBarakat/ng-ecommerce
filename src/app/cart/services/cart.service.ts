@@ -20,6 +20,7 @@ export class CartService {
   private cartProductsDocumentIds: string[] = [];
   private cart?: ICarts;
   private cartCountSubject = new BehaviorSubject<number>(0); // reactive state
+  private totalAmountSubject = new BehaviorSubject<number>(0); // reactive state
 
   private authSrv = inject(AuthService);
   private router = inject(Router);
@@ -27,6 +28,7 @@ export class CartService {
   private cartDataStRSrv = inject(CartDataStorageService);
 
   cartCount$ = this.cartCountSubject.asObservable();
+  totalAmount$ = this.totalAmountSubject.asObservable();
 
   constructor() {
     this.setLocalCartItems();
@@ -49,12 +51,15 @@ export class CartService {
       )
       .subscribe((cart) => {
         if (cart?.data) {
-          this.cart = { ...cart?.data };
+          if (!this.cart) this.cart = cart?.data;
+          else Object.assign(this.cart, cart.data);
+
           this.cartProductsDocumentIds = cart.data.products.map(
             (product) => product.documentId
           );
+          this.cartCountSubject.next(this.cartProductsDocumentIds.length);
+          this.totalAmountSubject.next(this.totalAmount);
         }
-        this.cartCountSubject.next(this.cartProductsDocumentIds.length);
       });
   }
 
@@ -113,6 +118,14 @@ export class CartService {
     // this.onPostToCart(documentId);
   }
   // onPostToCart(productId: string) {}
+  get totalAmount(): number {
+    let totalAmount: number = 0;
+    if (this.cart?.products.length == 0 || !this.cart) return totalAmount;
+    for (const product of this.cart.products) {
+      totalAmount += product.price || 0;
+    }
+    return totalAmount;
+  }
   onDeleteFromCart(productId: string) {
     let products = {
       connect: [productId],
@@ -124,20 +137,10 @@ export class CartService {
       .postToCart(postToCartReqBody, this.cart!.documentId)
       .subscribe((x) => {
         this.setLocalCartItems();
-        console.log(x);
       });
   }
 
   get getCart() {
     return this.cart;
-  }
-
-  get totalAmount(): number {
-    let totalAmount: number = 0;
-    if (this.cart?.products.length == 0 || !this.cart) return totalAmount;
-    for (const product of this.cart.products) {
-      totalAmount += product.price || 0;
-    }
-    return totalAmount;
   }
 }

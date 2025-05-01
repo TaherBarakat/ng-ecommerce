@@ -14,14 +14,18 @@ import { RouterLink } from '@angular/router';
 export class CartPageComponent {
   cartSrv = inject(CartService);
   cart?: ICarts;
-  totalAmount = this.cartSrv.totalAmount;
+  totalAmount!: number;
+  test: number[] = [];
 
   ngOnInit() {
     this.cart = this.cartSrv.getCart;
     console.log(this.cart);
+    this.cartSrv.totalAmount$.subscribe(
+      (newTotalAmount: number) => (this.totalAmount = newTotalAmount)
+    );
   }
   onDeleteCartItem(productDocumentId: string) {
     this.cartSrv.deleteFromCart(productDocumentId);
-    this.cart = this.cartSrv.getCart;
+    // this.cart = this.cartSrv.getCart;
   }
 }
