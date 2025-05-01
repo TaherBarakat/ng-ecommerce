@@ -48,15 +48,13 @@
         </ul>
       </nav>
 
-      <!-- User Actions -->
-      <div class="flex items-center gap-4">
-        <!-- Logged In State -->
-        <div
-          *ngIf="isUserLoggedIn$ | async"
-          class="flex flex-row w-[5.5vw] justify-between"
-        >
+      <div
+        class="flex flex-row justify-between gap-1"
+        *ngIf="isUserLoggedIn$ | async"
+      >
+        <div class="flex flex-row justify-between gap-2 items-center">
           <span
-            class="font-bold flex flex-row cursor-pointer"
+            class="hidden font-bold md:flex flex-row cursor-pointer"
             (click)="onOpenCartDropDown()"
           >
             <lucide-angular
@@ -66,60 +64,70 @@
             ></lucide-angular>
             &#40;{{ cartItemsCount | async }}&#41;
           </span>
-          <clerk-user-button />
+          <span
+            class="font-bold flex md:hidden flex-row cursor-pointer"
+            [routerLink]="'/cart'"
+          >
+            <lucide-angular
+              [img]="cartIcon"
+              strokeWidth="2"
+              class="my-icon"
+            ></lucide-angular>
+            &#40;{{ cartItemsCount | async }}&#41;
+          </span>
+          <clerk-user-button class="mt-2" />
+          <button
+            class="block rounded-sm bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 md:hidden"
+            (click)="onToggleMobileMenu()"
+            [attr.aria-expanded]="isMobileMenuOpen"
+          >
+            <span class="sr-only">Toggle menu</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                *ngIf="!isMobileMenuOpen"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+              <path
+                *ngIf="isMobileMenuOpen"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
         </div>
 
-        <!-- Cart Dropdown -->
         @if (isCartDropDownOpen) {
         <app-cart-drop-down (isOpen)="onOpenCartDropDown()" />
         }
+      </div>
 
-        <!-- Logged Out State -->
-        <div class="sm:flex sm:gap-4" *ngIf="!(isUserLoggedIn$ | async)">
-          <a
-            routerLink="/auth/login"
-            class="block rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700"
-          >
-            Login
-          </a>
-          <a
-            routerLink="/auth/register"
-            class="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 sm:block"
-          >
-            Register
-          </a>
-        </div>
+      <!-- Cart Dropdown -->
 
-        <!-- Mobile Menu Button -->
-        <button
-          class="block rounded-sm bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 md:hidden"
-          (click)="onToggleMobileMenu()"
-          [attr.aria-expanded]="isMobileMenuOpen"
+      <!-- Logged Out State -->
+      <div class="hidden md:flex sm:gap-4" *ngIf="!(isUserLoggedIn$ | async)">
+        <a
+          routerLink="/auth/login"
+          class="block rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700"
         >
-          <span class="sr-only">Toggle menu</span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-5 w-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              *ngIf="!isMobileMenuOpen"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M4 6h16M4 12h16M4 18h16"
-            />
-            <path
-              *ngIf="isMobileMenuOpen"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
-        </button>
+          Login
+        </a>
+        <a
+          routerLink="/auth/register"
+          class="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 sm:block"
+        >
+          Register
+        </a>
       </div>
     </div>
   </div>

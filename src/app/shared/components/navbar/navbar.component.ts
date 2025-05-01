@@ -8,9 +8,19 @@ import {
 } from 'ngx-clerk';
 import { AsyncPipe, NgIf } from '@angular/common';
 import { CartService } from '../../../cart/services/cart.service';
-import { LucideAngularModule, ShoppingCart } from 'lucide-angular';
+import {
+  LucideAngularModule,
+  Route,
+  Router,
+  ShoppingCart,
+} from 'lucide-angular';
 import { CartDropDownComponent } from '../../../cart/components/cart-drop-down/cart-drop-down.component';
-
+const NAV_LINKS = [
+  { path: '', title: 'home' },
+  { path: '/explore', title: 'Explore' },
+  { path: '/Projects', title: 'Projects' },
+  { path: '/about-us', title: 'About Us' },
+];
 @Component({
   selector: 'app-navbar',
   standalone: true,
@@ -53,4 +63,8 @@ export class NavbarComponent {
   onOpenCartDropDown() {
     this.isCartDropDownOpen = !this.isCartDropDownOpen;
   }
+  // route = inject(Route)
+  // navToCartPage() {
+  // this.r
+  // }
 }
