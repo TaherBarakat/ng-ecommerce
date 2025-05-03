@@ -1,0 +1,26 @@
+/* Custom animations */
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.blur-orb {
+  animation: pulse 3s ease-in-out infinite;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .grid-cols-4 {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  .md\\:col-span-2 {
+    grid-column: span 2;
+  }
+}

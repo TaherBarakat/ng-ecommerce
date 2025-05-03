@@ -1,1 +1,103 @@
-<p>footer works!</p>
+<footer class="relative bg-gray-900 border-t border-indigo-900/50 pt-24 pb-12">
+  <!-- Glowing orb effect -->
+  <div
+    class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full bg-indigo-600 blur-3xl opacity-10"
+  ></div>
+
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+      <!-- Brand Column -->
+      <div class="md:col-span-2">
+        <h3 class="text-2xl font-bold text-white mb-4">
+          <span class="text-indigo-400">NEXUS</span> GAMING
+        </h3>
+        <p class="text-gray-400 mb-6">
+          Equipping champions with tournament-grade gear since 2020.
+        </p>
+        <div class="flex space-x-4">
+          <a
+            *ngFor="let social of socialLinks"
+            [href]="social.url"
+            target="_blank"
+            class="text-gray-400 hover:text-indigo-400 transition-colors text-2xl"
+          >
+            <i [class]="'bi ' + social.icon"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <h4
+          class="text-sm font-semibold text-indigo-400 uppercase tracking-wider mb-4"
+        >
+          NAVIGATE
+        </h4>
+        <ul class="space-y-3">
+          <li *ngFor="let link of quickLinks">
+            <a
+              [routerLink]="link.route"
+              class="text-gray-400 hover:text-white transition-colors"
+            >
+              {{ link.name }}
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Contact Info -->
+      <div>
+        <h4
+          class="text-sm font-semibold text-indigo-400 uppercase tracking-wider mb-4"
+        >
+          CONTACT US
+        </h4>
+        <ul class="space-y-3 text-gray-400">
+          <li class="flex items-start gap-3">
+            <i class="bi bi-headset flex-shrink-0 mt-1 text-indigo-400"></i>
+            <div>
+              <p class="font-medium text-white">Support 24/7</p>
+              <a
+                href="mailto:support@nexus.gg"
+                class="hover:text-white transition-colors"
+                >support&#64;nexus.gg</a
+              >
+            </div>
+          </li>
+          <li class="flex items-start gap-3">
+            <i
+              class="bi bi-shield-check flex-shrink-0 mt-1 text-indigo-400"
+            ></i>
+            <div>
+              <p class="font-medium text-white">Business Inquiries</p>
+              <a
+                href="mailto:partners@nexus.gg"
+                class="hover:text-white transition-colors"
+                >partners&#64;nexus.gg</a
+              >
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div
+      class="mt-16 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center"
+    >
+      <p class="text-gray-500 text-sm">
+        © {{ currentYear }} Nexus Gaming. All rights reserved. Not affiliated
+        with Valve, Riot, or Blizzard.
+      </p>
+      <div class="flex space-x-6 mt-4 md:mt-0">
+        <a
+          *ngFor="let legal of legalLinks"
+          [routerLink]="legal.route"
+          class="text-gray-500 hover:text-gray-300 text-sm"
+        >
+          {{ legal.name }}
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>

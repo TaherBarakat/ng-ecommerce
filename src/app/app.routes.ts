@@ -5,6 +5,7 @@ import { AuthPageComponent } from './auth/components/auth-page/auth-page.compone
 import { ProductPageComponent } from './product/components/product-page/product-page.component';
 import { CartPageComponent } from './cart/components/cart/cart-page.component';
 import { StripeCheckoutComponent } from './stripe-checkout/stripe-checkout.component';
+import { AboutUsPageComponent } from './about-us-page/about-us-page.component';
 
 export const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -13,7 +14,7 @@ export const routes: Routes = [
   { path: 'products', component: ProductPageComponent },
   // { path: 'projects', component:  },
   { path: 'cart', component: CartPageComponent },
-  { path: 'about-us', component: HomePageComponent },
+  { path: 'about-us', component: AboutUsPageComponent },
   { path: 'auth/:mode', component: AuthPageComponent },
   { path: 'checkout', component: StripeCheckoutComponent },
 ];
