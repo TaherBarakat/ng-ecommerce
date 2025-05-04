@@ -118,46 +118,18 @@
     <div class="px-4 py-6 space-y-6">
       <nav aria-label="Mobile navigation">
         <ul class="flex flex-col space-y-4">
+          @for (link of links; track $index) {
           <li>
             <a
-              routerLink="/"
+              [routerLink]="link.path"
               routerLinkActive="text-teal-600 font-medium"
               class="block py-2 text-lg text-gray-700 hover:text-teal-600 transition"
               (click)="onToggleMobileMenu()"
             >
-              Home
+              {{ link.title }}
             </a>
           </li>
-          <li>
-            <a
-              routerLink="/explore"
-              routerLinkActive="text-teal-600 font-medium"
-              class="block py-2 text-lg text-gray-700 hover:text-teal-600 transition"
-              (click)="onToggleMobileMenu()"
-            >
-              Explore
-            </a>
-          </li>
-          <li>
-            <a
-              routerLink="/projects"
-              routerLinkActive="text-teal-600 font-medium"
-              class="block py-2 text-lg text-gray-700 hover:text-teal-600 transition"
-              (click)="onToggleMobileMenu()"
-            >
-              Projects
-            </a>
-          </li>
-          <li>
-            <a
-              routerLink="/about-us"
-              routerLinkActive="text-teal-600 font-medium"
-              class="block py-2 text-lg text-gray-700 hover:text-teal-600 transition"
-              (click)="onToggleMobileMenu()"
-            >
-              About Us
-            </a>
-          </li>
+          }
         </ul>
       </nav>
 
