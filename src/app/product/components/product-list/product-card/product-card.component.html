@@ -7,7 +7,7 @@
 
 <div
   [routerLink]="['/products', product?.documentId]"
-  class="bg-white rounded-lg shadow-md overflow-hidden hover:border hover:shadow-md hover:cursor-pointer"
+  class="bg-primary-dark rounded-lg shadow-md overflow-hidden hover:border hover:shadow-md hover:cursor-pointer"
 >
   <div class="relative pb-[56.25%]">
     <!-- 16:9 aspect ratio -->
@@ -21,16 +21,18 @@
     class="p-4 rounded-b-lg flex items-center justify-between b-3 bg-accent-text"
   >
     <div class="max-w-[70%]">
-      <h3 class="font-bold text-md line-clamp-1 m-1">
+      <h3 class="font-bold text-md line-clamp-1 m-1 text-primary-light">
         {{ product?.title }}
       </h3>
-      <h2 class="text-xs text-secondary-text flex gap-1 items-center">
+      <h2
+        class="text-xs text-secondary-text flex gap-1 items-center text-accent-light"
+      >
         <span-lucide [size]="20" [img]="ListIcon" class="my-icon"></span-lucide>
 
         {{ product?.category }}
       </h2>
     </div>
-    <h2 class="font-bold text-lg">{{ product?.price }}$</h2>
+    <h2 class="font-bold text-lg text-primary-light">{{ product?.price }}$</h2>
   </div>
 </div>
 <!-- 

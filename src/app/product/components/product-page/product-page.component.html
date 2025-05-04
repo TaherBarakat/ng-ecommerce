@@ -1,12 +1,100 @@
-<section class="px-10 md:px-20 mb-10">
-  <div class="flex justify-between items-center mb-6 flex-col md:flex-row">
-    <!-- <h2 class="font-bold text-xl">Recommended</h2> -->
-    <!-- <p
-      class="hover:cursor-pointer text-xs flex items-center md:text-lg text-accent-text hover:text-primary-text"
-    >
-      View All Collection
-      <span class="font-bold text-lg md:text-3xl md:pb-1 pl-1"> &#8594;</span>
-    </p> -->
+<section class="px-10 py-16 bg-primary-dark">
+  <div class="max-w-7xl mx-auto">
+    <!-- Header with your color scheme -->
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-bold text-primary-light">
+        <span
+          class="text-transparent bg-clip-text bg-gradient-to-r from-accent-light to-accent-DEFAULT"
+        >
+          Pro-Grade
+        </span>
+        <span class="text-secondary-light"> Gaming Hardware</span>
+      </h2>
+      <p class="mt-4 text-primary-light/80 max-w-2xl mx-auto">
+        Precision-tuned equipment for competitive dominance
+      </p>
+    </div>
+
+    <!-- Filter Badges -->
+    <div class="flex flex-wrap justify-center gap-3">
+      @for (category of categories; track $index) {
+      <button
+        (click)="setFilter(category.id)"
+        class="group transition-all duration-200"
+      >
+        <span
+          class="inline-flex items-center rounded-full px-4 py-2 text-sm font-medium border"
+          [class.border-accent-light]="isActive(category.id)"
+          [class.border-secondary-dark]="!isActive(category.id)"
+          [class.text-primary-light]="!isActive(category.id)"
+          [class.bg-accent-DEFAULT]="isActive(category.id)"
+          [class.text-white]="isActive(category.id)"
+        >
+          {{ category.name }}
+          @if (isActive(category.id)) {
+          <span class="ml-2 relative flex h-2 w-2">
+            <span
+              class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-light opacity-75"
+            ></span>
+            <span
+              class="relative inline-flex rounded-full h-2 w-2 bg-accent-light"
+            ></span>
+          </span>
+          }
+        </span>
+      </button>
+      }
+    </div>
   </div>
-  <app-product-list [products]="products"> </app-product-list>
+</section>
+
+<section class="px-10 md:px-20 p-10 bg-secondary-DEFAULT">
+  @if (products.length > 0) {
+  <app-product-list [products]="products"></app-product-list>
+  } @else {
+  <div
+    class="text-center py-20 bg-secondary-dark rounded-xl border-2 border-dashed border-accent-light/30"
+  >
+    <!-- Animated Hourglass with Warning Symbol -->
+    <div class="relative inline-block mb-6">
+      <div class="animate-flip-hourglass">
+        <i class="bi bi-hourglass-top text-5xl text-accent-light"></i>
+      </div>
+      <div
+        class="absolute -top-2 -right-2 bg-alert-DEFAULT text-white rounded-full w-6 h-6 flex items-center justify-center"
+      >
+        <i class="bi bi-exclamation-lg text-xs"></i>
+      </div>
+    </div>
+
+    <!-- Main Message -->
+    <h3 class="text-2xl font-bold text-primary-light mb-3">
+      <span
+        class="text-transparent bg-clip-text bg-gradient-to-r from-alert-DEFAULT to-alert-dark"
+      >
+        Gear Unavailable
+      </span>
+    </h3>
+
+    <div class="max-w-md mx-auto space-y-4">
+      <p class="text-primary-light/80">
+        <i class="bi bi-shield-lock mr-2 text-accent-light"></i>
+        Our warehouse is currently stocking these battle-ready peripherals
+      </p>
+
+      <!-- Estimated Availability -->
+      <div
+        class="bg-primary-dark/50 p-3 rounded-lg border border-accent-light/20"
+      >
+        <div class="flex items-center justify-center gap-2 text-sm">
+          <i class="bi bi-calendar2-week text-accent-light"></i>
+          <span class="text-primary-light">
+            Estimated restock:
+            <span class="font-semibold text-accent-light">November 2023</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  }
 </section>

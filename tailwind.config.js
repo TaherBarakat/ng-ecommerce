@@ -3,33 +3,37 @@ module.exports = {
   content: ["./src/**/*.{html,ts}"],
   theme: {
     extend: {
+      animation: {
+        "flip-hourglass": "flip 1s ease-in-out infinite",
+        ping: "ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite",
+      },
+      keyframes: {
+        flip: {
+          "0%, 100%": { transform: "rotate(0deg)" },
+          "50%": { transform: "rotate(180deg)" },
+        },
+        ping: {
+          "75%, 100%": { transform: "scale(2)", opacity: "0" },
+        },
+      },
       colors: {
         primary: {
-          light: "#48859d",
-          DEFAULT: "#264653",
-          dark: "#101e23",
-          text: "#101e23",
+          light: "#ccd5e3", // Muted cool blue-gray
+          DEFAULT: "#1e293b", // Slate-800: dark, elegant
+          dark: "#0f172a", // Slate-900: pairs well with indigo
         },
         secondary: {
-          light: "#36c9b8",
-          DEFAULT: "#2a9d8f",
-          dark: "#1b655c",
-          text: "#e7ffef",
+          light: "#7dd3fc", // Sky-300: soft and airy
+          DEFAULT: "#f1f5f9", // Slate-100: off-white with a cool tone
+          dark: "#334155", // Slate-700: cool and contrasty
         },
 
         accent: {
-          light: "#e9c46a",
-          DEFAULT: "#f4a261",
-          dark: "#9CA3AF",
-          text: "#9ca3af",
+          light: "#818cf8",
+          DEFAULT: "#4f46e5",
+          dark: "#4338ca",
         },
-        neutral: {
-          lightest: "#f5f5f5",
-          light: "#e0e0e0",
-          DEFAULT: "#9e9e9e",
-          dark: "#616161",
-          darkest: "#212121",
-        },
+
         success: {
           light: "#a5d6a7",
           DEFAULT: "#4caf50",

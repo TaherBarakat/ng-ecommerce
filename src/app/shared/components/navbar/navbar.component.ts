@@ -68,4 +68,10 @@ export class NavbarComponent {
   // navToCartPage() {
   // this.r
   // }
+  links = [
+    { path: '/', title: 'Home' },
+    { path: '/products', title: 'Products' },
+    { path: '/projects', title: 'Projects' },
+    { path: '/about-us', title: 'About Us' },
+  ];
 }

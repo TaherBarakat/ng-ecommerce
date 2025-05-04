@@ -10,9 +10,7 @@ import { AboutUsPageComponent } from './about-us-page/about-us-page.component';
 export const routes: Routes = [
   { path: '', component: HomePageComponent },
   { path: 'products/:documentId', component: ProductDetailsPageComponent },
-
   { path: 'products', component: ProductPageComponent },
-  // { path: 'projects', component:  },
   { path: 'cart', component: CartPageComponent },
   { path: 'about-us', component: AboutUsPageComponent },
   { path: 'auth/:mode', component: AuthPageComponent },
