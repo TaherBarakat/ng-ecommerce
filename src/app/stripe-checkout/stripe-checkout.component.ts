@@ -11,6 +11,7 @@ import { environment } from '../../environments/environment.development';
 import { PaymentService } from './services/payment.service';
 import { CurrencyPipe, NgIf } from '@angular/common';
 import { CartService } from '../cart/services/cart.service';
+import { SpinnerComponent } from '../shared/components/spinner/spinner.component';
 
 @Component({
   selector: 'app-stripe-checkout',
@@ -23,6 +24,7 @@ import { CartService } from '../cart/services/cart.service';
     NgIf,
     CurrencyPipe,
     StripePaymentElementComponent,
+    SpinnerComponent,
   ],
   templateUrl: './stripe-checkout.component.html',
   styleUrl: './stripe-checkout.component.css',
@@ -114,6 +116,7 @@ export class StripeCheckoutComponent implements OnInit {
           this.paymentError.set(result.error.message || 'Payment failed');
         } else if (result.paymentIntent?.status === 'succeeded') {
           this.paymentSuccess.set(true);
+          this.cartService.resetCart();
         }
       });
   }

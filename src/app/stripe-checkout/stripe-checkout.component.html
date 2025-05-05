@@ -1,125 +1,186 @@
-<div class="payment-header">
-  <h2>Payment Element Example</h2>
-</div>
-<div class="payment-container">
-  <div class="payment-card">
-    <div class="payment-content" [formGroup]="checkoutForm">
-      <div class="form-row">
-        <div class="form-group">
-          <label>Name</label>
-          <input type="text" formControlName="name" class="form-control" />
-          <div
-            *ngIf="
+<div class="bg-primary-dark min-h-screen p-6">
+  <!-- Header -->
+  <div class="max-w-6xl mx-auto mb-8 text-center">
+    <h2 class="text-3xl font-bold text-primary-light">
+      Complete Your Purchase
+    </h2>
+  </div>
+
+  <!-- Payment Card - Two Column Layout -->
+  <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-[1px]">
+    <!-- Left Column - Billing Form -->
+    <div class="bg-secondary overflow-hidden p-6 md:p-8">
+      <div [formGroup]="checkoutForm" class="space-y-6">
+        <!-- Name -->
+        <div class="space-y-2">
+          <label class="block text-sm font-medium text-primary-dark"
+            >Name</label
+          >
+          <input
+            type="text"
+            formControlName="name"
+            class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-accent-DEFAULT focus:border-accent-DEFAULT transition"
+            [class.border-alert-DEFAULT]="
               checkoutForm.get('name')?.invalid &&
               checkoutForm.get('name')?.touched
             "
-            class="error-message"
-          >
-            Name is required
-          </div>
+          />
+          @if (checkoutForm.get('name')?.invalid &&
+          checkoutForm.get('name')?.touched) {
+          <p class="text-sm text-alert-DEFAULT">Name is required</p>
+          }
         </div>
 
-        <div class="form-group">
-          <label>Email</label>
-          <input type="email" formControlName="email" class="form-control" />
-          <div
-            *ngIf="
+        <!-- Email -->
+        <div class="space-y-2">
+          <label class="block text-sm font-medium text-primary-dark"
+            >Email</label
+          >
+          <input
+            type="email"
+            formControlName="email"
+            class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-accent-DEFAULT focus:border-accent-DEFAULT transition"
+            [class.border-alert-DEFAULT]="
               checkoutForm.get('email')?.invalid &&
               checkoutForm.get('email')?.touched
             "
-            class="error-message"
+          />
+          @if (checkoutForm.get('email')?.invalid &&
+          checkoutForm.get('email')?.touched) {
+          <p class="text-sm text-alert-DEFAULT">Valid email is required</p>
+          }
+        </div>
+
+        <!-- Address -->
+        <div class="space-y-2">
+          <label class="block text-sm font-medium text-primary-dark"
+            >Address</label
           >
-            Valid email is required
-          </div>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label>Address</label>
-        <input type="text" formControlName="address" class="form-control" />
-        <div
-          *ngIf="
-            checkoutForm.get('address')?.invalid &&
-            checkoutForm.get('address')?.touched
-          "
-          class="error-message"
-        >
-          Address is required
-        </div>
-      </div>
-
-      <div class="form-row">
-        <div class="form-group">
-          <label>ZIP Code</label>
-          <input type="text" formControlName="zipcode" class="form-control" />
-          <div
-            *ngIf="
-              checkoutForm.get('zipcode')?.invalid &&
-              checkoutForm.get('zipcode')?.touched
+          <input
+            type="text"
+            formControlName="address"
+            class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-accent-DEFAULT focus:border-accent-DEFAULT transition"
+            [class.border-alert-DEFAULT]="
+              checkoutForm.get('address')?.invalid &&
+              checkoutForm.get('address')?.touched
             "
-            class="error-message"
-          >
-            ZIP code is required
-          </div>
+          />
+          @if (checkoutForm.get('address')?.invalid &&
+          checkoutForm.get('address')?.touched) {
+          <p class="text-sm text-alert-DEFAULT">Address is required</p>
+          }
         </div>
 
-        <div class="form-group">
-          <label>City</label>
-          <input type="text" formControlName="city" class="form-control" />
-          <div
-            *ngIf="
-              checkoutForm.get('city')?.invalid &&
-              checkoutForm.get('city')?.touched
-            "
-            class="error-message"
-          >
-            City is required
+        <!-- City/ZIP Row -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- ZIP Code -->
+          <div class="space-y-2">
+            <label class="block text-sm font-medium text-primary-dark"
+              >ZIP Code</label
+            >
+            <input
+              type="text"
+              formControlName="zipcode"
+              class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-accent-DEFAULT focus:border-accent-DEFAULT transition"
+              [class.border-alert-DEFAULT]="
+                checkoutForm.get('zipcode')?.invalid &&
+                checkoutForm.get('zipcode')?.touched
+              "
+            />
+            @if (checkoutForm.get('zipcode')?.invalid &&
+            checkoutForm.get('zipcode')?.touched) {
+            <p class="text-sm text-alert-DEFAULT">ZIP code is required</p>
+            }
+          </div>
+
+          <!-- City -->
+          <div class="space-y-2">
+            <label class="block text-sm font-medium text-primary-dark"
+              >City</label
+            >
+            <input
+              type="text"
+              formControlName="city"
+              class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-accent-DEFAULT focus:border-accent-DEFAULT transition"
+              [class.border-alert-DEFAULT]="
+                checkoutForm.get('city')?.invalid &&
+                checkoutForm.get('city')?.touched
+              "
+            />
+            @if (checkoutForm.get('city')?.invalid &&
+            checkoutForm.get('city')?.touched) {
+            <p class="text-sm text-alert-DEFAULT">City is required</p>
+            }
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="stripe-element-container">
+    <!-- Right Column - Payment Section -->
+    <div class="bg-secondary overflow-hidden p-6 md:p-8">
+      <!-- Stripe Element Container -->
+      <div class="h-full flex flex-col">
+        <h3 class="text-xl font-semibold text-primary-dark mb-6">
+          Payment Details
+        </h3>
+
         @if (elementsOptions.clientSecret) {
-        <ngx-stripe-elements
-          [stripe]="stripe"
-          [elementsOptions]="elementsOptions"
+        <div class="flex-grow">
+          <ngx-stripe-elements
+            [stripe]="stripe"
+            [elementsOptions]="elementsOptions"
+          >
+            <ngx-stripe-payment
+              class="[&_*]:font-sans [&_iframe]:min-h-[50px]"
+            />
+          </ngx-stripe-elements>
+        </div>
+        } @else {
+        <div
+          class="text-center flex-grow flex flex-col items-center justify-center"
         >
-          <ngx-stripe-payment />
-        </ngx-stripe-elements>
+          <app-spinner></app-spinner>
+          <p class="text-gray-600">Loading payment gateway...</p>
+        </div>
+        }
+
+        <!-- Payment Actions -->
+        <div class="mt-8 flex flex-col-reverse sm:flex-row justify-end gap-4">
+          <button
+            type="button"
+            (click)="clear()"
+            [disabled]="paying()"
+            class="px-6 py-3 border border-gray-300 rounded-lg font-medium text-gray-700 hover:bg-gray-50 transition disabled:opacity-50"
+          >
+            CLEAR
+          </button>
+          <button
+            type="button"
+            (click)="collectPayment()"
+            [disabled]="paying() || checkoutForm.invalid"
+            class="px-6 py-3 bg-gradient-to-r from-accent-DEFAULT to-accent-dark rounded-lg font-medium text-white hover:from-accent-dark hover:to-accent-DEFAULT transition bg-accent disabled:opacity-50"
+          >
+            @if (paying()) { PROCESSING... } @else { PAY {{ amount | currency }}
+            }
+          </button>
+        </div>
+
+        <!-- Payment Status Messages -->
+        @if (paymentError()) {
+        <div
+          class="mt-6 p-4 bg-alert-light border border-alert-DEFAULT text-alert-text rounded-lg"
+        >
+          {{ paymentError() }}
+        </div>
+        } @if (paymentSuccess()) {
+        <div
+          class="mt-6 p-4 bg-success-light border border-success-DEFAULT text-success-dark rounded-lg"
+        >
+          Payment processed successfully!
+        </div>
         }
       </div>
-
-      <div class="payment-actions">
-        <button
-          type="button"
-          class="btn-clear"
-          (click)="clear()"
-          [disabled]="paying()"
-        >
-          CLEAR
-        </button>
-        <button
-          type="button"
-          class="btn-pay"
-          (click)="collectPayment()"
-          [disabled]="paying() || checkoutForm.invalid"
-        >
-          @if (paying()) { PROCESSING... } @else { PAY {{ amount | currency }}
-          }
-        </button>
-      </div>
-
-      @if (paymentError()) {
-      <div class="error-message payment-status">
-        {{ paymentError() }}
-      </div>
-      } @if (paymentSuccess()) {
-      <div class="success-message payment-status">
-        Payment processed successfully!
-      </div>
-      }
     </div>
   </div>
 </div>
-
-<!-- {{ elementsOptions.clientSecret }} -->
+<!-- <button (click)="onResetTest()">dddddddd</button> -->
