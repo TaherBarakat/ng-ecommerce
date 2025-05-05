@@ -3,7 +3,7 @@ import { ProductBannerComponent } from './product-banner/product-banner.componen
 import { ProductListComponent } from '../product-list/product-list.component';
 import { StrapiResponse, Course } from '../../product.interface';
 import { ProductDataStorageService } from '../../services/product-data-storage.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { filter, Subscription } from 'rxjs';
 import { AsyncPipe, NgIf, NgOptimizedImage } from '@angular/common';
 
@@ -13,6 +13,7 @@ import { AsyncPipe, NgIf, NgOptimizedImage } from '@angular/common';
   imports: [
     ProductBannerComponent,
     AsyncPipe,
+    RouterLink,
     ProductListComponent,
     NgIf,
     NgOptimizedImage,
