@@ -18,7 +18,7 @@ import { ICarts, IPostCartReqBody } from '../cart.interface';
 })
 export class CartService {
   private cartProductsDocumentIds: string[] = [];
-  private cart?: ICarts;
+  private cart!: ICarts;
   private cartCountSubject = new BehaviorSubject<number>(0); // reactive state
   private totalAmountSubject = new BehaviorSubject<number>(0); // reactive state
 

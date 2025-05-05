@@ -1,52 +1,55 @@
-<section class="flex items-center justify-center bg-secondary">
-  <div
-    class="max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8 bg-secondary w-full"
-  >
+<section
+  class="flex items-center justify-center bg-secondary-DEFAULT min-h-[calc(100vh-200px)] bg-primary-dark"
+>
+  <div class="max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8 w-full">
     <div class="mx-auto max-w-3xl">
       <header class="text-center">
-        <h1 class="text-xl font-bold text-gray-900 sm:text-3xl">Your Cart</h1>
+        <h1 class="text-xl font-bold text-secondary sm:text-3xl">Your Cart</h1>
       </header>
 
+      @if (cart?.products && cart.products.length > 0) {
       <div class="mt-8">
         <ul class="space-y-4">
-          @for (product of cart?.products; track $index) {
-          <li class="flex items-center gap-4">
+          @for (product of cart.products; track $index) {
+          <li
+            class="flex items-center gap-4 p-4 bg-secondary rounded-lg shadow-sm"
+          >
             <img
               [src]="product.banner?.url"
               alt=""
               class="size-16 rounded-sm object-cover"
             />
 
-            <div>
-              <h3 class="text-sm text-gray-900">Basic Tee 6-Pack</h3>
+            <div class="flex-1">
+              <h3 class="text-sm font-medium text-primary-dark">
+                {{ product.title }}
+              </h3>
 
-              <dl class="mt-0.5 space-y-px text-[10px] text-gray-600">
+              <dl class="mt-0.5 space-y-px text-xs text-primary-dark">
                 <div>
-                  <dt class="inline">Category:{{ " " }}</dt>
+                  <dt class="inline">Category:</dt>
                   <dd class="inline">{{ product.category }}</dd>
                 </div>
               </dl>
             </div>
 
-            <div class="flex flex-1 items-center justify-end gap-2">
-              <div>
-                <!-- <dt class="inline">price:</dt> -->
-                <dd class="inline">$ {{ product.price }}</dd>
+            <div class="flex items-center gap-4">
+              <div class="font-medium text-primary-dark">
+                ${{ product.price | number }}
               </div>
 
               <button
-                class="text-gray-600 transition hover:text-red-600"
+                class="text-primary-light transition hover:text-alert-DEFAULT"
                 (click)="onDeleteCartItem(product.documentId)"
               >
                 <span class="sr-only">Remove item</span>
-
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke-width="1.5"
                   stroke="currentColor"
-                  class="size-4"
+                  class="size-5"
                 >
                   <path
                     stroke-linecap="round"
@@ -60,19 +63,27 @@
           }
         </ul>
 
-        <div class="mt-8 flex justify-end border-t border-gray-100 pt-8">
-          <div class="w-screen max-w-lg space-y-4">
-            <dl class="space-y-0.5 text-sm text-gray-700">
-              <div class="flex justify-between !text-base font-medium">
+        <div class="mt-8 flex justify-end border-t border-gray-200 pt-8">
+          <div class="w-full max-w-lg space-y-4">
+            <dl class="space-y-0.5 text-sm text-primary-dark">
+              <div
+                class="flex justify-between text-secondary text-base font-medium"
+              >
                 <dt>Total</dt>
-                <dd>$ {{ totalAmount | number }}</dd>
+                <dd>${{ totalAmount | number }}</dd>
               </div>
             </dl>
 
-            <div class="flex justify-end">
+            <div class="flex justify-end gap-4">
+              <a
+                [routerLink]="['/products']"
+                class="rounded-sm px-5 py-3 text-sm font-medium text-primary-dark bg-secondary-light transition hover:bg-accent-light"
+              >
+                Continue Shopping
+              </a>
               <a
                 [routerLink]="['/checkout']"
-                class="block rounded-sm bg-accent px-5 py-3 text-sm text-gray-100 transition hover:bg-gray-600"
+                class="rounded-sm bg-accent-DEFAULT px-5 py-3 text-sm font-medium bg-accent text-secondary transition hover:bg-accent-dark"
               >
                 Checkout
               </a>
@@ -80,6 +91,38 @@
           </div>
         </div>
       </div>
+      } @else {
+      <div class="mt-12 text-center">
+        <div class="mx-auto max-w-md">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="mx-auto h-12 w-12 text-primary-light"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+            />
+          </svg>
+          <h2 class="mt-4 text-xl font-medium text-secondary">
+            Your cart is empty
+          </h2>
+          <p class="mt-2 text-primary-light">
+            Browse our gaming gear collection and find something amazing!
+          </p>
+          <a
+            [routerLink]="['/products']"
+            class="mt-6 bg-accent inline-block rounded-sm bg-accent-DEFAULT px-6 py-3 text-sm font-medium text-white transition hover:bg-accent-dark"
+          >
+            Explore Products
+          </a>
+        </div>
+      </div>
+      }
     </div>
   </div>
 </section>
