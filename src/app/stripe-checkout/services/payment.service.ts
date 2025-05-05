@@ -14,10 +14,10 @@ export class PaymentService {
   private cartSrv = inject(CartService);
   private http = inject(HttpClient);
 
-  totalAmount = this.cartSrv.totalAmount;
+  // totalAmount = this.cartSrv.totalAmount;
 
   createPaymentIntent(): Observable<{ clientSecret: string }> {
-    let amount = this.totalAmount;
+    let amount = this.cartSrv.totalAmount;
     return this.http
       .post<{ clientSecret: string }>(this.apiUrl, {
         amount: amount,

@@ -117,6 +117,22 @@ export class CartService {
     }
     // this.onPostToCart(documentId);
   }
+
+  resetCart() {
+    let postToCartReqBody = {
+      data: {
+        products: {
+          set: [],
+        },
+      },
+    };
+    this.cartDataStRSrv
+      .postToCart(postToCartReqBody, this.cart!.documentId)
+      .subscribe(() => {
+        this.setLocalCartItems();
+      });
+  }
+
   // onPostToCart(productId: string) {}
   get totalAmount(): number {
     let totalAmount: number = 0;
@@ -126,19 +142,19 @@ export class CartService {
     }
     return totalAmount;
   }
-  onDeleteFromCart(productId: string) {
-    let products = {
-      connect: [productId],
-    };
-    let postToCartReqBody = {
-      data: { products },
-    };
-    this.cartDataStRSrv
-      .postToCart(postToCartReqBody, this.cart!.documentId)
-      .subscribe((x) => {
-        this.setLocalCartItems();
-      });
-  }
+  // onDeleteFromCart(productId: string) {
+  //   let products = {
+  //     connect: [productId],
+  //   };
+  //   let postToCartReqBody = {
+  //     data: { products },
+  //   };
+  //   this.cartDataStRSrv
+  //     .postToCart(postToCartReqBody, this.cart!.documentId)
+  //     .subscribe((x) => {
+  //       this.setLocalCartItems();
+  //     });
+  // }
 
   get getCart() {
     return this.cart;
