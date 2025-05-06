@@ -7,7 +7,7 @@
         <h1 class="text-xl font-bold text-secondary sm:text-3xl">Your Cart</h1>
       </header>
 
-      @if (cart?.products && cart.products.length > 0) {
+      @if ( cart.products.length > 0) {
       <div class="mt-8">
         <ul class="space-y-4">
           @for (product of cart.products; track $index) {
