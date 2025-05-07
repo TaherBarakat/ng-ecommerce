@@ -4,8 +4,11 @@ module.exports = {
   theme: {
     extend: {
       animation: {
+        "spin-slow": "spin 20s linear infinite",
+        float: "float 4s ease-in-out infinite",
         "flip-hourglass": "flip 1s ease-in-out infinite",
         ping: "ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite",
+        "pulse-glow": "pulseGlow 2s ease-in-out infinite",
       },
       keyframes: {
         flip: {
@@ -14,6 +17,10 @@ module.exports = {
         },
         ping: {
           "75%, 100%": { transform: "scale(2)", opacity: "0" },
+        },
+        float: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-10px)" },
         },
       },
       colors: {
@@ -27,13 +34,11 @@ module.exports = {
           DEFAULT: "#f1f5f9", // Slate-100: off-white with a cool tone
           dark: "#334155", // Slate-700: cool and contrasty
         },
-
         accent: {
           light: "#818cf8",
           DEFAULT: "#4f46e5",
           dark: "#4338ca",
         },
-
         success: {
           light: "#a5d6a7",
           DEFAULT: "#4caf50",
