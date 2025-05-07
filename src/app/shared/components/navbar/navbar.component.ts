@@ -6,19 +6,16 @@ import {
   ClerkUserButtonComponent,
   ClerkUserProfileComponent,
 } from 'ngx-clerk';
+import { Router } from '@angular/router';
+
 import { AsyncPipe, NgIf } from '@angular/common';
 import { CartService } from '../../../cart/services/cart.service';
-import {
-  LucideAngularModule,
-  Route,
-  Router,
-  ShoppingCart,
-} from 'lucide-angular';
+import { LucideAngularModule, Route, ShoppingCart } from 'lucide-angular';
 import { CartDropDownComponent } from '../../../cart/components/cart-drop-down/cart-drop-down.component';
 const NAV_LINKS = [
-  { path: '', title: 'home' },
-  { path: '/explore', title: 'Explore' },
-  { path: '/Projects', title: 'Projects' },
+  { path: '/', title: 'Home' },
+  { path: '/products', title: 'Products' },
+  { path: '/projects', title: 'Projects' },
   { path: '/about-us', title: 'About Us' },
 ];
 @Component({
@@ -38,43 +35,32 @@ const NAV_LINKS = [
   styleUrl: './navbar.component.css',
 })
 export class NavbarComponent {
-  @ViewChild('userButton') userButton!: any;
-
   authSrv = inject(AuthService);
   clerkSrv = inject(ClerkService);
   cartSrv = inject(CartService);
-
+  _router = inject(Router);
+  cartIcon = ShoppingCart;
   isMobileMenuOpen = false;
-  readonly cartIcon = ShoppingCart;
+  isUserLoggedIn$ = this.clerkSrv.user$;
+  cartItemsCount = this.cartSrv.getCartItemsCount();
+  isCartDropDownOpen = false;
+
+  links = NAV_LINKS;
+
+  handleCartClick(): void {
+    const isLargeScreen = window.innerWidth >= 640; // adjust breakpoint as needed (e.g., 1024px for lg)
+
+    if (isLargeScreen) {
+      this.onOpenCartDropDown();
+    } else {
+      this._router.navigate(['/cart']);
+    }
+  }
 
   onToggleMobileMenu() {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
   }
-  // .subscribe((user) => {
-  // isUserLoggedIn$ = this.authSrv.isUserLoggedIn;
-  isUserLoggedIn$ = this.clerkSrv.user$;
-  cartItemsCount = this.cartSrv.getCartItemsCount();
-  // ngOnInit() {
-  //   console.log(this.isLoggedInMode);
-  //   this.authSrv.isUserLoggedIn.subscribe((isUserLoggedIn) => {
-  //     console.log('isLoggedIn temp', this.isLoggedInMode);
-  //     console.log('isLoggedIn clerck', isUserLoggedIn);
-  //     this.isLoggedInMode = isUserLoggedIn;
-  //   });
-  // }
-  isCartDropDownOpen = false;
   onOpenCartDropDown() {
     this.isCartDropDownOpen = !this.isCartDropDownOpen;
   }
-  // route = inject(Route)
-  // navToCartPage() {
-  // this.r
-  // }
-
-  links = [
-    { path: '/', title: 'Home' },
-    { path: '/products', title: 'Products' },
-    { path: '/projects', title: 'Projects' },
-    { path: '/about-us', title: 'About Us' },
-  ];
 }

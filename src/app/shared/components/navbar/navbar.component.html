@@ -27,10 +27,9 @@
       <div class="flex flex-row justify-between gap-1">
         <div class="flex flex-row justify-between gap-2 items-center">
           <button
-            (click)="onOpenCartDropDown()"
+            (click)="handleCartClick()"
             *ngIf="isUserLoggedIn$ | async"
             class="font-bold flex flex-row"
-            [routerLink]="'/cart'"
           >
             <lucide-angular
               [img]="cartIcon"

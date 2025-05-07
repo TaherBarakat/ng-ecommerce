@@ -14,11 +14,11 @@ import { RouterLink } from '@angular/router';
 export class CartDropDownComponent {
   @Output() isOpen = new EventEmitter<boolean>();
   cartSrv = inject(CartService);
-  cart?: ICarts;
+  cart!: ICarts;
 
   ngOnInit() {
     this.cart = this.cartSrv.getCart;
-    console.log(this.cart);
+    console.log(this.cartSrv.getCart);
   }
   onCloseCart() {
     this.isOpen.emit(false);

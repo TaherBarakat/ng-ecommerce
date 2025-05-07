@@ -38,7 +38,6 @@ export class CartDataStorageService {
           return { data: resp.data[0], meta: resp.meta };
         })
       );
-    // localhost:1337/ap/carts/
   }
 
   postToCart(reqBody: any, documentId: string) {

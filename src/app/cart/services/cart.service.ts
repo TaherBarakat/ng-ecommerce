@@ -46,7 +46,7 @@ export class CartService {
             ? resp
             : this.cartDataStRSrv
                 .initCart()
-                .subscribe((res) => console.log(res))
+                .subscribe((res) => console.log('res create', res))
         )
       )
       .subscribe((cart) => {
@@ -64,8 +64,7 @@ export class CartService {
   }
 
   addToCart(productDocumentId: string) {
-    // if (this.cartProductsDocumentIds.includes(productDocumentId)) return;
-
+    console.log(this.cart);
     if (this.authSrv.isUserLoggedIn.value) {
       // let products = ;
       let postToCartReqBody = {
@@ -94,14 +93,11 @@ export class CartService {
   }
 
   deleteFromCart(documentId: string) {
-    // if (this.cartProductsDocumentIds.includes(documentId)) return;
     if (this.authSrv.isUserLoggedIn.value) {
       let filteredCartProductsDocumentIds = this.cartProductsDocumentIds.filter(
         (deletedDocumentId) => deletedDocumentId !== documentId
       );
-      // this.cart?.products.push(documentId);
 
-      // let products = ;
       let postToCartReqBody = {
         data: {
           products: {
@@ -142,19 +138,6 @@ export class CartService {
     }
     return totalAmount;
   }
-  // onDeleteFromCart(productId: string) {
-  //   let products = {
-  //     connect: [productId],
-  //   };
-  //   let postToCartReqBody = {
-  //     data: { products },
-  //   };
-  //   this.cartDataStRSrv
-  //     .postToCart(postToCartReqBody, this.cart!.documentId)
-  //     .subscribe((x) => {
-  //       this.setLocalCartItems();
-  //     });
-  // }
 
   get getCart() {
     return this.cart;
