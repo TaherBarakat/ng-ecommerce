@@ -7,11 +7,11 @@ import {
   injectStripe,
 } from 'ngx-stripe';
 import { StripeElementsOptions } from '@stripe/stripe-js';
-import { environment } from '../../environments/environment.development';
-import { PaymentService } from './services/payment.service';
+import { environment } from '../../../../environments/environment.development';
+import { PaymentService } from '../../services/payment.service';
 import { CurrencyPipe, NgIf } from '@angular/common';
-import { CartService } from '../cart/services/cart.service';
-import { SpinnerComponent } from '../shared/components/spinner/spinner.component';
+import { CartService } from '../../../cart/services/cart.service';
+import { SpinnerComponent } from '../../../shared/components/spinner/spinner.component';
 
 @Component({
   selector: 'app-stripe-checkout',

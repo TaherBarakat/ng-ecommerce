@@ -33,10 +33,10 @@
     </button>
 
     <div class="mt-4 space-y-6">
-      @if (cart?.products?.length!==0) {
+      @if (cart.products.length!==0) {
 
       <ul class="space-y-4">
-        @for (product of cart?.products; track product.documentId) {
+        @for (product of cart.products; track product.documentId) {
         <li
           (click)="onCloseCart()"
           class="flex items-center gap-4 cursor-pointer hover:bg-accent-text"
@@ -69,7 +69,7 @@
       }
 
       <div class="space-y-4 text-center">
-        @if (cart?.products?.length!==0) {
+        @if (cart.products.length!==0) {
         <a
           [routerLink]="['/cart']"
           (click)="onCloseCart()"
