@@ -22,25 +22,14 @@
           }
         </ul>
       </nav>
+      <!-- bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb -->
 
-      <div
-        class="flex flex-row justify-between gap-1"
-        *ngIf="isUserLoggedIn$ | async"
-      >
+      <div class="flex flex-row justify-between gap-1">
         <div class="flex flex-row justify-between gap-2 items-center">
-          <span
-            class="hidden font-bold md:flex flex-row cursor-pointer"
+          <button
             (click)="onOpenCartDropDown()"
-          >
-            <lucide-angular
-              [img]="cartIcon"
-              strokeWidth="2"
-              class="my-icon"
-            ></lucide-angular>
-            &#40;{{ cartItemsCount | async }}&#41;
-          </span>
-          <span
-            class="font-bold flex md:hidden flex-row cursor-pointer"
+            *ngIf="isUserLoggedIn$ | async"
+            class="font-bold flex flex-row"
             [routerLink]="'/cart'"
           >
             <lucide-angular
@@ -49,36 +38,18 @@
               class="my-icon"
             ></lucide-angular>
             &#40;{{ cartItemsCount | async }}&#41;
-          </span>
-          <clerk-user-button class="mt-2 hidden md:block" />
+          </button>
+          <clerk-user-button
+            *ngIf="isUserLoggedIn$ | async"
+            class="mt-2 hidden md:block"
+          />
           <button
             class="block rounded-sm bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 md:hidden"
             (click)="onToggleMobileMenu()"
             [attr.aria-expanded]="isMobileMenuOpen"
           >
             <span class="sr-only">Toggle menu</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                *ngIf="!isMobileMenuOpen"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-              <path
-                *ngIf="isMobileMenuOpen"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
+            <img src="assets/menu.svg" alt="" class="h-8 w-8" />
           </button>
         </div>
 
@@ -87,7 +58,7 @@
         }
       </div>
 
-      <!-- Cart Dropdown -->
+      <!-- bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb -->
 
       <!-- Logged Out State -->
       <div class="hidden md:flex sm:gap-4" *ngIf="!(isUserLoggedIn$ | async)">
@@ -109,21 +80,24 @@
 
   <!-- Mobile Menu -->
   <div
-    class="md:hidden fixed inset-0 bg-white z-30 mt-16 transition-all duration-300 ease-in-out overflow-y-auto"
+    class="md:hidden fixed inset-0 bg-secondary z-30 mt-16 transition-all duration-300 ease-in-out overflow-y-auto"
     [class.opacity-0]="!isMobileMenuOpen"
     [class.invisible]="!isMobileMenuOpen"
     [class.opacity-100]="isMobileMenuOpen"
     [class.visible]="isMobileMenuOpen"
   >
-    <div class="px-4 py-6 space-y-6">
+    <div class="px-4 py-6 space-y-6 bg-secondary">
       <nav aria-label="Mobile navigation">
+        <div *ngIf="isUserLoggedIn$ | async">
+          <clerk-user-button />
+        </div>
         <ul class="flex flex-col space-y-4">
           @for (link of links; track $index) {
           <li>
             <a
               [routerLink]="link.path"
               routerLinkActive="text-teal-600 font-medium"
-              class="block py-2 text-lg text-gray-700 hover:text-teal-600 transition"
+              class="block py-2 text-lg text-gray-700 hover:text-secondary-dark transition"
               (click)="onToggleMobileMenu()"
             >
               {{ link.title }}
@@ -133,10 +107,6 @@
         </ul>
       </nav>
 
-      <div *ngIf="isUserLoggedIn$ | async">
-        <clerk-user-profile />
-      </div>
-
       <div
         *ngIf="!(isUserLoggedIn$ | async)"
         class="pt-6 border-t border-gray-200"
@@ -144,14 +114,14 @@
         <div class="flex flex-col space-y-4">
           <a
             routerLink="/auth/login"
-            class="w-full rounded-md bg-teal-600 px-5 py-2.5 text-center text-sm font-medium text-white transition hover:bg-teal-700"
+            class="w-full rounded-md bg-accent px-5 py-2.5 text-center text-sm font-medium text-secondary transition hover:bg-accent-dark"
             (click)="onToggleMobileMenu()"
           >
             Login
           </a>
           <a
             routerLink="/auth/register"
-            class="w-full rounded-md bg-gray-100 px-5 py-2.5 text-center text-sm font-medium text-teal-600 transition hover:text-teal-600/75"
+            class="w-full rounded-md bg-accent-light px-5 py-2.5 text-center text-sm font-medium text-primary transition hover:text-accent-dark"
             (click)="onToggleMobileMenu()"
           >
             Register

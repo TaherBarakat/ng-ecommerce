@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../../auth/services/auth.service';
 import {
@@ -38,6 +38,8 @@ const NAV_LINKS = [
   styleUrl: './navbar.component.css',
 })
 export class NavbarComponent {
+  @ViewChild('userButton') userButton!: any;
+
   authSrv = inject(AuthService);
   clerkSrv = inject(ClerkService);
   cartSrv = inject(CartService);
@@ -68,6 +70,7 @@ export class NavbarComponent {
   // navToCartPage() {
   // this.r
   // }
+
   links = [
     { path: '/', title: 'Home' },
     { path: '/products', title: 'Products' },
